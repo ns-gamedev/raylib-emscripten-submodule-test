@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Bazel outputs and caches
+bazel-raylib-emscripten-submodule-test/*
+bazel-out/*
+bazel-bin/*
