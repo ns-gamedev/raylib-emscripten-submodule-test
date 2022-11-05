@@ -5,7 +5,8 @@ jobs:
   Build-Main-With-Bazel:
     runs-on: ubuntu-latest
     env:
-      BUILD_KEY: "${{ github.repository }}-${{ github.ref }}-$GITHUB_SHA"
+      BRANCH_KEY: ${{ github.repository }}-bazel-${{ github.ref }}
+      BUILD_KEY: $BRANCH_KEY-${{ github.sha }}
     steps:
       - run: bazel version
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
