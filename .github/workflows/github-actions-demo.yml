@@ -6,12 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BRANCH_KEY: ${{ github.repository }}-bazel-${{ github.ref }}
-      BUILD_KEY: $BRANCH_KEY-${{ github.sha }}
+      BUILD_KEY: ${{ github.repository }}-bazel-${{ github.ref }}-${{ github.sha }}
     steps:
       - run: bazel version
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - run: echo "$BRANCH_KEY"
       - run: echo "$BUILD_KEY"
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -24,6 +25,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: bazelcache
-          key: bazelcache 
+          key: BUILD_KEY
+          restore-keys: BRANCH_KEY
       - run: bazel build //main:entry-point-wasm --disk_cache=bazelcache
       - run: echo "🍏 This job's status is ${{ job.status }}."
