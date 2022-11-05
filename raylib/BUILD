@@ -7,12 +7,18 @@ cc_library(
     visibility = ["//main:__pkg__"],
 )
 
+RAYLIB_WARNINGS_TO_IGNORE = [
+    "-Wno-unused-function",
+    "-Wno-implicit-const-int-float-conversion",
+    "-Wno-unused-but-set-variable",
+    "-Wno-unknown-warning-option"]
+
 cc_library(
     name = "raylib-internals-wasm",
     srcs = ["raylib/src/raudio.c",
             "raylib/src/utils.c"],
     hdrs = glob(["raylib/src/*.h"]) + glob(["raylib/src/external/*.h"]),
-    copts = ["-Iraylib/raylib/src/external/.", "-Os -DPLATFORM_WEB", "-Wno-unused-function"],
+    copts = ["-Os -DPLATFORM_WEB"] + RAYLIB_WARNINGS_TO_IGNORE,
 )
 
 cc_library(
@@ -23,5 +29,5 @@ cc_library(
             "raylib/src/rtext.c",
             "raylib/src/rmodels.c"],
     hdrs = glob(["raylib/src/*.h"]) + glob(["raylib/src/external/*.h"]),
-    copts = ["-Iraylib/raylib/src/external/.", "-Os -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2", "-Wno-unused-function"],
+    copts = ["-Os -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2"] + RAYLIB_WARNINGS_TO_IGNORE,
 )
