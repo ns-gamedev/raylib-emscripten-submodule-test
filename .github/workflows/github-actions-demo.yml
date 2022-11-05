@@ -2,16 +2,16 @@ name: GitHub Actions Test with Bazel
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  Build-Main-With-Bazel:  
+  Build-Main-With-Bazel:
+    runs-on: ubuntu-latest
     env:
       BUILD_KEY: "${{ github.repository }}-${{ github.ref }}-$GITHUB_SHA"
-    runs-on: ubuntu-latest
     steps:
       - run: bazel version
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - run: echo "${{env.BUILD_KEY"}}"
+      - run: echo "$BUILD_KEY"
       - name: Check out repository code
         uses: actions/checkout@v3
       - run: git submodule update --init --recursive
