@@ -4,7 +4,8 @@ cc_library(
     name = "libraylib-wasm",
     deps = [ ":raylib-internals-wasm",
              ":raylib-internals-opengl-wasm"],      
-    visibility = ["//main:__pkg__"],
+    visibility = ["//main:__pkg__"],    
+    hdrs = glob(["raylib/src/*.h"]) + glob(["raylib/src/external/*.h"]),
 )
 
 RAYLIB_PLATFORM_WEB_FLAGS = ["-Os -DPLATFORM_WEB"]

@@ -4,7 +4,9 @@ load("@emsdk//emscripten_toolchain:wasm_rules.bzl", "wasm_cc_binary")
 cc_binary(
     name = "entry-point",
     srcs = ["entry.cc"],
-    deps = ["//raylib:libraylib-wasm"]
+    deps = ["//raylib:libraylib-wasm"],
+    copts = ["-Iraylib/raylib/src"],
+    linkopts = [ "-s USE_GLFW=3" , "--shell-file raylib/raylib/src/minshell.html" , "-sASYNCIFY" ]
 )
 
 wasm_cc_binary(
