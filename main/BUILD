@@ -6,7 +6,7 @@ cc_binary(
     srcs = ["entry.cc"],
     deps = ["//raylib:libraylib-wasm"],
     copts = ["-Iraylib/raylib/src"],
-    linkopts = [ "-s USE_GLFW=3" , "--shell-file raylib/raylib/src/minshell.html" , "-sASYNCIFY" ]
+    linkopts = [ "-s USE_GLFW=3" , "-sASYNCIFY" ]
 )
 
 wasm_cc_binary(
