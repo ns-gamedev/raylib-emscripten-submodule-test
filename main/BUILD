@@ -1,5 +1,6 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 load("@emsdk//emscripten_toolchain:wasm_rules.bzl", "wasm_cc_binary")
+load("@rules_pkg//:pkg.bzl", "pkg_zip")
 
 cc_binary(
     name = "entry-point",
@@ -16,4 +17,10 @@ wasm_cc_binary(
         "entry-point.js",
         "entry-point.wasm"
     ],
+)
+
+pkg_zip(
+    name = "package-game",
+    srcs = [":entry-point-wasm",
+            "minshell.html"]
 )

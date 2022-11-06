@@ -5,6 +5,9 @@ jobs:
   Build-Main-With-Bazel:
     runs-on: ubuntu-latest
     env:
+      CACHE_PATH: bazel_cache
+      PACKAGE_NAME: main
+      RULE_NAME: package-game
       BRANCH_KEY: ${{ github.repository }}-bazel-${{ github.ref }}
       BUILD_KEY: ${{ github.repository }}-bazel-${{ github.ref }}-${{ github.sha }}
     steps:
@@ -24,8 +27,9 @@ jobs:
           ls ${{ github.workspace }}
       - uses: actions/cache@v3
         with:
-          path: bazelcache
+          path: ${{ env.CACHE_PATH }}
           key: ${{ env.BUILD_KEY }}
           restore-keys: ${{ env.BRANCH_KEY }}
-      - run: bazel build //main:entry-point-wasm --disk_cache=bazelcache
+      - run: bazel build //${{ env.PACKAGE_NAME }}:${{ env.RULE_NAME }} --disk_cache=${{ env.CACHE_PATH }}
+      - run: ls ${{ env.CACHE_PATH }}/bazel-bin/${{ env.PACKAGE_NAME }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
