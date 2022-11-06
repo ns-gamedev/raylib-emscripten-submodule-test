@@ -10,6 +10,8 @@ jobs:
       RULE_NAME: package-game
       BRANCH_KEY: ${{ github.repository }}-bazel-${{ github.ref }}
       BUILD_KEY: ${{ github.repository }}-bazel-${{ github.ref }}-${{ github.sha }}
+      ARTIFACT_EXTENSION: zip
+      ARTIFACT_PATH: ${{ github.workspace }}/bazel-bin/${{ env.PACKAGE_NAME }}/${{ env.RULE_NAME }}.${{ env.ARTIFACT_EXTENSION }}
     steps:
       - run: bazel version
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -31,7 +33,5 @@ jobs:
           key: ${{ env.BUILD_KEY }}
           restore-keys: ${{ env.BRANCH_KEY }}
       - run: bazel build //${{ env.PACKAGE_NAME }}:${{ env.RULE_NAME }} --disk_cache=${{ env.CACHE_PATH }}
-      - run: pwd
-      - run: dir
-      - run: tree
+      - run: hexdump -C ${{ env.BRANCH_KEY }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
