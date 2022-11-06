@@ -31,5 +31,7 @@ jobs:
           key: ${{ env.BUILD_KEY }}
           restore-keys: ${{ env.BRANCH_KEY }}
       - run: bazel build //${{ env.PACKAGE_NAME }}:${{ env.RULE_NAME }} --disk_cache=${{ env.CACHE_PATH }}
-      - run: ls ${{ env.CACHE_PATH }}/bazel-bin/${{ env.PACKAGE_NAME }}
+      - run: pwd
+      - run: dir
+      - run: tree
       - run: echo "🍏 This job's status is ${{ job.status }}."
