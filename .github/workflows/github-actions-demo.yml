@@ -32,6 +32,14 @@ jobs:
           key: ${{ env.BUILD_KEY }}
           restore-keys: ${{ env.BRANCH_KEY }}
       - run: bazel build //${{ env.PACKAGE_NAME }}:${{ env.RULE_NAME }} --disk_cache=${{ env.CACHE_PATH }}
+      - name: 'Upload Artifact'
+          env:
+            ARTIFACT_PATH: ${{ github.workspace }}/bazel-bin/${{ env.PACKAGE_NAME }}/${{ env.RULE_NAME }}.${{ env.ARTIFACT_EXTENSION }}
+          uses: actions/upload-artifact@v3
+          with:
+            name: result-${{ github.sha }}
+            path: ${{ env.ARTIFACT_PATH }}
+            retention-days: 2
       - run: hexdump -C ${{ env.ARTIFACT_PATH }}
         env:
           ARTIFACT_PATH: ${{ github.workspace }}/bazel-bin/${{ env.PACKAGE_NAME }}/${{ env.RULE_NAME }}.${{ env.ARTIFACT_EXTENSION }}
