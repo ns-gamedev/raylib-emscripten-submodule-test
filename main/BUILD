@@ -22,5 +22,5 @@ wasm_cc_binary(
 pkg_zip(
     name = "package-game",
     srcs = [":entry-point-wasm",
-            "minshell.html"]
+            "index.html"]
 )
