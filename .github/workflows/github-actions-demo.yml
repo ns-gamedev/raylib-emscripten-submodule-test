@@ -1,16 +1,16 @@
 name: GitHub Actions Test with Bazel
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
+env:
+  CACHE_PATH: bazel_cache
+  PACKAGE_NAME: main
+  RULE_NAME: package-game
+  BRANCH_KEY: ${{ github.repository }}-bazel-${{ github.ref }}
+  BUILD_KEY: ${{ github.repository }}-bazel-${{ github.ref }}-${{ github.sha }}
+  ARTIFACT_EXTENSION: zip
 jobs:
   Build-Main-With-Bazel:
-    runs-on: ubuntu-latest
-    env:
-      CACHE_PATH: bazel_cache
-      PACKAGE_NAME: main
-      RULE_NAME: package-game
-      BRANCH_KEY: ${{ github.repository }}-bazel-${{ github.ref }}
-      BUILD_KEY: ${{ github.repository }}-bazel-${{ github.ref }}-${{ github.sha }}
-      ARTIFACT_EXTENSION: zip
+    runs-on: ubuntu-latest    
     steps:
       - run: bazel version
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -40,7 +40,16 @@ jobs:
           name: result-${{ github.sha }}
           path: ${{ env.ARTIFACT_PATH }}
           retention-days: 2
-      - run: hexdump -C ${{ env.ARTIFACT_PATH }}
-        env:
-          ARTIFACT_PATH: ${{ github.workspace }}/bazel-bin/${{ env.PACKAGE_NAME }}/${{ env.RULE_NAME }}.${{ env.ARTIFACT_EXTENSION }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+  Push-Build-To-Itch:  
+    runs-on: ubuntu-latest
+    needs: [Build-Main-With-Bazel]
+    env:
+      ARTIFACT_PATH: ${{ github.workspace }}/bazel-bin/${{ env.PACKAGE_NAME }}/${{ env.RULE_NAME }}.${{ env.ARTIFACT_EXTENSION }}
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - uses: actions/download-artifact@v3
+        with:
+          name: result-${{ github.sha }}
+          path: ${{ env.ARTIFACT_PATH }}
+      - run: hexdump -C ${{ env.ARTIFACT_PATH }}
