@@ -21,10 +21,18 @@
 //------------------------------------------------------------------------------------
 int main ()
 {
+
+    char buf [40];
+
+
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 200;
+    const int screenHeight = 350;
+
+    char buffer [50];
+    int n, a=5, b=3;
+    n=sprintf (buf, "Size is: %d x %d", screenWidth, screenHeight);
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - 2d camera mouse zoom");
 
@@ -83,15 +91,15 @@ int main ()
                 rlPushMatrix();
                     rlTranslatef(0, 25*50, 0);
                     rlRotatef(90, 1, 0, 0);
-                    DrawGrid(100, 50);
+                   // DrawGrid(100, 50);
                 rlPopMatrix();
 
                 // Draw a reference circle
-                DrawCircle(100, 100, 50, YELLOW);
+               // DrawCircle(100, 100, 50, YELLOW);
                 
             EndMode2D();
 
-            DrawText("Mouse right button drag to move, mouse wheel to zoom", 10, 10, 20, WHITE);
+            DrawText(buf, 10, 10, 20, WHITE);
         
         EndDrawing();
         //----------------------------------------------------------------------------------
