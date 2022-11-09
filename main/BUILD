@@ -19,8 +19,13 @@ wasm_cc_binary(
     ],
 )
 
-pkg_zip(
-    name = "package-game",
+filegroup(
+    name = "game-files",
     srcs = [":entry-point-wasm",
             "index.html"]
+)
+
+pkg_zip(
+    name = "package-game",
+    srcs = [":game-files"]
 )

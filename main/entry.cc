@@ -16,6 +16,8 @@
 #include "rlgl.h"
 #include "raymath.h"
 
+#include <stdio.h>
+
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -30,9 +32,7 @@ int main ()
     const int screenWidth = 200;
     const int screenHeight = 350;
 
-    char buffer [50];
-    int n, a=5, b=3;
-    n=sprintf (buf, "Size is: %d x %d", screenWidth, screenHeight);
+    sprintf (buf, "Size is: %d x %d", screenWidth, screenHeight);
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - 2d camera mouse zoom");
 
