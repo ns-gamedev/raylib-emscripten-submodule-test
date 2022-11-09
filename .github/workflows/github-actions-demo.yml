@@ -53,3 +53,10 @@ jobs:
       - run: hexdump -C ${{ env.ARTIFACT_PATH }}
         env:
           ARTIFACT_PATH: artifact/${{ env.RULE_NAME }}.${{ env.ARTIFACT_EXTENSION }}
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          PACKAGE: artifact/${{ env.RULE_NAME }}.${{ env.ARTIFACT_EXTENSION }}
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_BUTLER_TOKEN }}     
+          CHANNEL: ${{ secrets.ITCH_BUTLER_CHANNEL_NAME }}
+          ITCH_GAME: ${{ secrets.ITCH_BUTLER_GAME_NAME }}
+          ITCH_USER: ${{ secrets.ITCH_BUTLER_USERNAME }}
