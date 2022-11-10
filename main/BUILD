@@ -29,3 +29,10 @@ pkg_zip(
     name = "package-game",
     srcs = [":game-files"]
 )
+
+genrule(
+    name = "server",
+    srcs = [":game-files"],
+    outs = ["out/a"],
+    cmd_ps = "echo $(SRCS) >> $(@D)/a ; $$files = Get-Content -Path $(@D)/a; foreach( $$file in $$files) { Copy-Item $$file -Destination $(@D) } "
+)
