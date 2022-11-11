@@ -12,6 +12,7 @@
 ********************************************************************************************/
 
 #include "raylib.h"
+#include "emscripten.h"
 
 #include "rlgl.h"
 #include "raymath.h"
@@ -26,19 +27,33 @@ void set_size(int wid, int hei) {
 
 }
 
+void GetCanvasSize(int &width, int &height)
+{
+    width = (int)EM_ASM_DOUBLE ({
+        return Module.canvas.parentElement.getBoundingClientRect().width ;
+    } , NULL ) ;
+
+    height = (int)EM_ASM_DOUBLE ({
+        return Module.canvas.parentElement.getBoundingClientRect().height ;
+    } , NULL ) ; 
+}
+
+
+
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
 int main ()
 {
-
     char buf [40];
 
 
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 200;
-    const int screenHeight = 350;
+    int screenWidth;
+    int screenHeight;
+
+    GetCanvasSize(screenWidth, screenHeight);
 
     sprintf (buf, "Size is: %d x %d", screenWidth, screenHeight);
 
