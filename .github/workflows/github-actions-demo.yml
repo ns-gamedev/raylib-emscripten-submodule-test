@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 env:
   CACHE_PATH: bazel_cache
-  PACKAGE_NAME: main
+  PACKAGE_NAME: archcore
   RULE_NAME: package-game
   BRANCH_KEY: ${{ github.repository }}-bazel-${{ github.ref }}
   BUILD_KEY: ${{ github.repository }}-bazel-${{ github.ref }}-${{ github.sha }}
