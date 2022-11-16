@@ -3,7 +3,7 @@ load("@emsdk//emscripten_toolchain:wasm_rules.bzl", "wasm_cc_binary")
 load("@rules_pkg//:pkg.bzl", "pkg_zip")
 
 cc_binary(
-    name = "entry-point",
+    name = "archcore-bin",
     srcs = ["entry.cc"],
     deps = ["//raylib:libraylib-wasm"],
     copts = ["-Iraylib/raylib/src"],
@@ -11,17 +11,17 @@ cc_binary(
 )
 
 wasm_cc_binary(
-    name = "entry-point-wasm",
-    cc_target = ":entry-point",
+    name = "archcore-wasm",
+    cc_target = ":archcore-bin",
     outputs = [
-        "entry-point.js",
-        "entry-point.wasm"
+        "archcore.js",
+        "archcore.wasm"
     ],
 )
 
 filegroup(
     name = "game-files",
-    srcs = [":entry-point-wasm",
+    srcs = [":archcore-wasm",
             "index.html"]
 )
 
