@@ -13,6 +13,6 @@ cc_binary(
     name = "archcore-bin",
     visibility = ["//archcore:__pkg__"],  
     deps = [":archcore-lib"],
-    linkopts = [ "-s USE_GLFW=3" , "-sASYNCIFY" , "-sEXPORTED_FUNCTIONS=_set_size,_main", "-sEXPORTED_RUNTIME_METHODS=ccall,cwrap"]
+    linkopts = [ "-s USE_GLFW=3" , "-sASYNCIFY" , "-sEXPORTED_FUNCTIONS=_set_size,_main", "-sEXPORTED_RUNTIME_METHODS=ccall,cwrap", "-sALLOW_MEMORY_GROWTH"]
 
 )

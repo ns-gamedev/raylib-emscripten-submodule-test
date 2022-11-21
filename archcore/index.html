@@ -45,10 +45,19 @@
             canvas: (function () {
                 var canvas = document.getElementById('canvas');
                 return canvas;
-            })()
+            })(),
+            arguments: []
         };
+
+        var dpr = window.devicePixelRatio || 1;
+        var canv = document.getElementById("canvas");
+        var initialRect = canv.getBoundingClientRect();
+        canv.width = initialRect.width * dpr;
+        canv.height = initialRect.height * dpr;
+        Module.arguments.push(String(canv.width));
+        Module.arguments.push(String(canv.height));
     </script>
-    <script src="entry-point.js"></script>
+    <script src="archcore-bin.js"></script>
 </body>
 
 </html>

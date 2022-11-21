@@ -6,8 +6,8 @@ wasm_cc_binary(
     name = "archcore-wasm",
     cc_target = "//main:archcore-bin",
     outputs = [
-        "archcore.js",
-        "archcore.wasm"
+        "archcore-bin.js",
+        "archcore-bin.wasm"
     ],
 )
 

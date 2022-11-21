@@ -43,9 +43,10 @@ void GetCanvasSize(int &width, int &height)
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
-int main ()
+
+int main(int argc, char** argv) 
 {
-    char buf [40];
+    char buf [240];
 
 
     // Initialization
@@ -55,7 +56,14 @@ int main ()
 
     GetCanvasSize(screenWidth, screenHeight);
 
-    sprintf (buf, "Size is: %d x %d", screenWidth, screenHeight);
+    char* ptr = buf;
+
+    for(int i = 0; i < argc; i++)
+    {
+        ptr += sprintf (ptr, "Arg: %d is %s\n", i, argv[i]);
+    }
+
+    //sprintf (buf, "Size is: %d x %d", screenWidth, screenHeight);
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - 2d camera mouse zoom");
 
@@ -122,7 +130,7 @@ int main ()
                 
             EndMode2D();
 
-            DrawText(buf, 10, 10, 20, WHITE);
+            DrawText(buf, 40, 10, 20, WHITE);
         
         EndDrawing();
         //----------------------------------------------------------------------------------
